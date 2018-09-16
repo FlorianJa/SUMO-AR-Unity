@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TraCIConnection : MonoBehaviour {
 
+    public string Hostname;
+    public int Port;
     private TraCIClient client;
     private Task Task;
 
@@ -14,9 +16,9 @@ public class TraCIConnection : MonoBehaviour {
 
         client = new TraCIClient();
 
-        await client.ConnectAsync("141.99.199.199", 4000);
+        await client.ConnectAsync(Hostname, Port);
 
-       Task = Task.Run(() => UpdateSim());
+        Task = Task.Run(() => UpdateSim());
     }
 	
 	// Update is called once per frame
@@ -31,6 +33,8 @@ public class TraCIConnection : MonoBehaviour {
         {
             await client.Control.SimStep();
             await Task.Delay(10);
+            var allVehicles = await client.Vehicle.GetIdList();
+            
         }
     }
 
