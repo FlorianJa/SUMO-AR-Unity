@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of ids of all poi
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_POI_VARIABLE,
@@ -27,10 +26,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns the number of pois
         /// </summary>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetIdCount()
+		public TraCIResponse<int> GetIdCount()
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_POI_VARIABLE,
@@ -42,10 +41,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetType(string id)
+		public TraCIResponse<string> GetType(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POI_VARIABLE,
@@ -57,10 +56,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Color>> GetColor(string id)
+		public TraCIResponse<Color> GetColor(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Color>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Color>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POI_VARIABLE,
@@ -72,10 +71,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Position2D>> GetPosition(string id)
+		public TraCIResponse<Position2D> GetPosition(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Position2D>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Position2D>(
 				Client,
 				id,
 				TraCIConstants.CMD_GET_POI_VARIABLE,
@@ -88,9 +87,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetType(string id, string type)
+        public TraCIResponse<object> SetType(string id, string type)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POI_VARIABLE,
@@ -105,9 +104,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="color"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetColor(string id, Color color)
+        public TraCIResponse<object> SetColor(string id, Color color)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Color>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Color>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POI_VARIABLE,
@@ -122,9 +121,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="position2D"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetPosition(string id, Position2D position2D)
+        public TraCIResponse<object> SetPosition(string id, Position2D position2D)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Position2D>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Position2D>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POI_VARIABLE,
@@ -142,14 +141,14 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="layer"></param>
         /// <param name="position2D"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> Add(string id, string name, Color color, int layer, Position2D position2D)
+        public TraCIResponse<object> Add(string id, string name, Color color, int layer, Position2D position2D)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIString() { Value = name });
             tmp.Value.Add(color);
             tmp.Value.Add(new TraCIInteger() { Value = layer });
             tmp.Value.Add(position2D);
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POI_VARIABLE,
@@ -164,9 +163,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="layer"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> Remove(string id, int layer)
+        public TraCIResponse<object> Remove(string id, int layer)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, int>(
+            return TraCICommandHelper.ExecuteSetCommand<object, int>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POI_VARIABLE,
@@ -177,7 +176,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

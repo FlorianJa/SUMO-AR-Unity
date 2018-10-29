@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of ids of all polygons
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -24,13 +23,13 @@ namespace CodingConnected.TraCI.NET.Commands
 		}
 
         /// <summary>
-        /// returns the number of polygons 
+        /// Returns the number of polygons 
         /// </summary>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetIdCount()
+		public TraCIResponse<int> GetIdCount()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -42,10 +41,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetType(string id)
+		public TraCIResponse<string> GetType(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -57,10 +56,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Color>> GetColor(string id)
+		public TraCIResponse<Color> GetColor(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Color>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Color>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -72,10 +71,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Polygon>> GetShape(string id)
+		public TraCIResponse<Polygon> GetShape(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Polygon>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Polygon>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -87,10 +86,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<byte>> GetFilled(string id)
+		public TraCIResponse<byte> GetFilled(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<byte>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<byte>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_POLYGON_VARIABLE,
@@ -103,9 +102,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="typeId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetType(string id, string typeId)
+        public TraCIResponse<object> SetType(string id, string typeId)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -120,9 +119,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="color"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetColor(string id, Color color)
+        public TraCIResponse<object> SetColor(string id, Color color)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Color>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Color>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -137,9 +136,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetShape(string id, Polygon polygon)
+        public TraCIResponse<object> SetShape(string id, Polygon polygon)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Polygon>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Polygon>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -154,9 +153,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="filled"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetFilled(string id, byte filled)
+        public TraCIResponse<object> SetFilled(string id, byte filled)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, byte>(
+            return TraCICommandHelper.ExecuteSetCommand<object, byte>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -175,7 +174,7 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="layer"></param>
         /// <param name="shape"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> Add(string id, string name,Color color, bool filled, int layer, Polygon shape)
+        public TraCIResponse<object> Add(string id, string name,Color color, bool filled, int layer, Polygon shape)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIString() { Value = name });
@@ -184,7 +183,7 @@ namespace CodingConnected.TraCI.NET.Commands
             tmp.Value.Add(new TraCIInteger() { Value = layer });
             tmp.Value.Add(shape);
 
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -199,9 +198,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="layer"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> Remove(string id, int layer)
+        public TraCIResponse<object> Remove(string id, int layer)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, int>(
+            return TraCICommandHelper.ExecuteSetCommand<object, int>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_POLYGON_VARIABLE,
@@ -213,7 +212,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

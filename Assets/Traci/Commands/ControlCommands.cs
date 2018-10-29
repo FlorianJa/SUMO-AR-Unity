@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -15,14 +14,14 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <summary>
         /// Gets an identifying version number as described here: http://sumo.dlr.de/wiki/TraCI/Control-related_commands
         /// </summary>
-        public async Task<int> GetVersionId()
+        public int GetVersionId()
 		{
 			var command = new TraCICommand
 			{
 				Identifier = TraCIConstants.CMD_GETVERSION, 
 				Contents = null
 			};
-			var response = await Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
 			if (response?.Length == 2)
 			{
 				return BitConverter.ToInt32(response[1].Response.Take(4).Reverse().ToArray(), 0);
@@ -33,14 +32,14 @@ namespace CodingConnected.TraCI.NET.Commands
 		/// <summary>
 		/// Gets a user friendly string describing the version of SUMO
 		/// </summary>
-		public async Task<string> GetVersionString()
+		public string GetVersionString()
 		{
 			var command = new TraCICommand
 			{
 				Identifier = TraCIConstants.CMD_GETVERSION,
 				Contents = null
 			};
-			var response = await Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
 			if (response?.Length == 2)
 			{
 				var strlen = response[1].Response.Skip(4).Take(4).Reverse().ToArray();
@@ -56,7 +55,7 @@ namespace CodingConnected.TraCI.NET.Commands
 		/// Note: the size of the step is set via the relevant .sumcfg file
 		/// </summary>
 		/// <param name="targetTime">If this is not 0, SUMO will run until target time is reached</param>
-		public async Task<TraCIResponse<object>> SimStep(int targetTime = 0)
+		public TraCIResponse<object> SimStep(int targetTime = 0)
 		{
 			var command = new TraCICommand
 			{
@@ -64,10 +63,10 @@ namespace CodingConnected.TraCI.NET.Commands
 				Contents = TraCIDataConverter.GetTraCIBytesFromInt32(targetTime)
 			};
 
-			var response = await Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
             var tmp = TraCIDataConverter.ExtractDataFromResponse<object>(response, TraCIConstants.CMD_SIMSTEP);
 
-            if (tmp.Content != null)
+            if (tmp != null && tmp.Content != null)
             {
                 var listOfSubscriptions = tmp.Content as List<TraCISubscriptionResponse>;
                 foreach (var item in listOfSubscriptions)
@@ -130,6 +129,7 @@ namespace CodingConnected.TraCI.NET.Commands
             }
 
             return tmp;
+
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace CodingConnected.TraCI.NET.Commands
 				Contents = null
 			};
 			// ReSharper disable once UnusedVariable
-			var response = Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
 		}
 
 		/// <summary>
@@ -166,7 +166,7 @@ namespace CodingConnected.TraCI.NET.Commands
 			}
 			command.Contents = n.ToArray();
 			// ReSharper disable once UnusedVariable
-			var response = Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
 		}
 
 		/// <summary>
@@ -181,7 +181,7 @@ namespace CodingConnected.TraCI.NET.Commands
 				Identifier = TraCIConstants.CMD_GETVERSION, 
 				Contents = BitConverter.GetBytes(index).Reverse().ToArray()
 			};
-			var response = Client.SendMessageAsync(command);
+			var response = Client.SendMessage(command);
 		}
 
         #endregion // Public Methods

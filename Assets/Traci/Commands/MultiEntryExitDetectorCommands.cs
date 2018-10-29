@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 
 namespace CodingConnected.TraCI.NET.Commands
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of all objects in the network.
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -27,10 +26,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns the number of currently loaded objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetIdCount()
+        public TraCIResponse<int> GetIdCount()
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -43,10 +42,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetLastStepVehicleNumber(string id)
+        public TraCIResponse<int> GetLastStepVehicleNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -59,10 +58,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetLastStepMeanSpeed(string id)
+        public TraCIResponse<double> GetLastStepMeanSpeed(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -75,10 +74,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetLastStepVehicleIds(string id)
+        public TraCIResponse<List<string>> GetLastStepVehicleIds(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -90,10 +89,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetLastStepHaltingNumber(string id)
+        public TraCIResponse<int> GetLastStepHaltingNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_MULTIENTRYEXIT_VARIABLE,
@@ -103,7 +102,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

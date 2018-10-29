@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -14,10 +13,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetCurrentTime (string id)
+        public TraCIResponse<int> GetCurrentTime (string id)
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -29,10 +28,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetLoadedNumber (string id)
+		public TraCIResponse<int> GetLoadedNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -44,10 +43,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetLoadedIDList (string id)
+		public TraCIResponse<List<string>> GetLoadedIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -59,10 +58,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetDepartedNumber (string id)
+		public TraCIResponse<int> GetDepartedNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -74,10 +73,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetDepartedIDList (string id)
+		public TraCIResponse<List<string>> GetDepartedIDList (string id = "")
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -89,10 +88,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetStartingTeleportNumber (string id)
+		public TraCIResponse<int> GetStartingTeleportNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -104,10 +103,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetStartingTeleportIDList (string id)
+		public TraCIResponse<List<string>> GetStartingTeleportIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -119,10 +118,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetEndingTeleportNumber(string id)
+		public TraCIResponse<int> GetEndingTeleportNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -134,10 +133,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetEndingTeleportIDList (string id)
+		public TraCIResponse<List<string>> GetEndingTeleportIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -149,10 +148,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetArrivedNumber (string id)
+		public TraCIResponse<int> GetArrivedNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -164,10 +163,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetArrivedIDList (string id)
+		public TraCIResponse<List<string>> GetArrivedIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -179,10 +178,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<BoundaryBox>> GetNetBoundary (string id)
+		public TraCIResponse<BoundaryBox> GetNetBoundary (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<BoundaryBox>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<BoundaryBox>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -194,10 +193,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetMinExpectedNumber (string id)
+		public TraCIResponse<int> GetMinExpectedNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -209,10 +208,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetStopStartingVehiclesNumber (string id)
+		public TraCIResponse<int> GetStopStartingVehiclesNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -224,10 +223,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetStopStartingVehiclesIDList (string id)
+		public TraCIResponse<List<string>> GetStopStartingVehiclesIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -239,10 +238,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetStopEndingVehiclesNumber (string id)
+		public TraCIResponse<int> GetStopEndingVehiclesNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -254,10 +253,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetStopEndingVehiclesIDList (string id)
+		public TraCIResponse<List<string>> GetStopEndingVehiclesIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -269,10 +268,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetCollidingVehiclesNumber (string id)
+		public TraCIResponse<int> GetCollidingVehiclesNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -285,10 +284,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetCollidingVehiclesIDList (string id)
+		public TraCIResponse<List<string>> GetCollidingVehiclesIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -301,10 +300,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetParkingStartingVehiclesNumber (string id)
+		public TraCIResponse<int> GetParkingStartingVehiclesNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -316,10 +315,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetParkingStartingVehiclesIDList (string id)
+		public TraCIResponse<List<string>> GetParkingStartingVehiclesIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -331,10 +330,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetParkingEndingVehiclesNumber (string id)
+		public TraCIResponse<int> GetParkingEndingVehiclesNumber (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -346,10 +345,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetParkingEndingVehiclesIDList (string id)
+		public TraCIResponse<List<string>> GetParkingEndingVehiclesIDList (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -361,10 +360,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetBusStopWaiting (string id)
+		public TraCIResponse<int> GetBusStopWaiting (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -376,10 +375,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetDeltaT (string id)
+		public TraCIResponse<int> GetDeltaT (string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -391,10 +390,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetParameter(string id)
+		public TraCIResponse<string> GetParameter(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_SIM_VARIABLE,
@@ -409,9 +408,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="routeId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> ClearPending(string id, string routeId)
+        public TraCIResponse<object> ClearPending(string id, string routeId)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_SIM_VARIABLE,
@@ -426,9 +425,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SaveState(string id, string filename)
+        public TraCIResponse<object> SaveState(string id, string filename)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_SIM_VARIABLE,
@@ -439,7 +438,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -14,10 +13,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetZoom(string id)
+        public TraCIResponse<double> GetZoom(string id)
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_GUI_VARIABLE,
@@ -29,10 +28,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Position2D>> GetOffset(string id)
+		public TraCIResponse<Position2D> GetOffset(string id)
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<Position2D>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Position2D>(
 				Client,
 				id,
 				TraCIConstants.CMD_GET_GUI_VARIABLE,
@@ -44,10 +43,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetSchema(string id)
+		public TraCIResponse<string> GetSchema(string id)
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_GUI_VARIABLE,
@@ -59,10 +58,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<BoundaryBox>> GetBoundary(string id)
+		public TraCIResponse<BoundaryBox> GetBoundary(string id)
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<BoundaryBox>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<BoundaryBox>(
 				Client,
 				id,
 				TraCIConstants.CMD_GET_GUI_VARIABLE,
@@ -75,9 +74,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="zoom"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetZoom(string id, double zoom)
+        public TraCIResponse<object> SetZoom(string id, double zoom)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -92,9 +91,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetOffset(string id, Position2D position)
+        public TraCIResponse<object> SetOffset(string id, Position2D position)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Position2D>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Position2D>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -109,9 +108,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="schema"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetSchema(string id, string schema)
+        public TraCIResponse<object> SetSchema(string id, string schema)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -126,9 +125,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="boundaryBox"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetBoundary(string id, BoundaryBox boundaryBox)
+        public TraCIResponse<object> SetBoundary(string id, BoundaryBox boundaryBox)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, BoundaryBox>(
+            return TraCICommandHelper.ExecuteSetCommand<object, BoundaryBox>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -143,9 +142,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> screenshot(string id, string filename)
+        public TraCIResponse<object> screenshot(string id, string filename)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -160,9 +159,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="vehicleId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> TrackVehicle(string id, string vehicleId)
+        public TraCIResponse<object> TrackVehicle(string id, string vehicleId)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                     Client,
                     id,
                     TraCIConstants.CMD_SET_GUI_VARIABLE,
@@ -173,7 +172,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

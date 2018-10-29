@@ -151,7 +151,7 @@ namespace CodingConnected.TraCI.NET
 
 #region Public Methods
 
-	    internal async Task<TraCIResult[]> SendMessageAsync(TraCICommand command)
+	    internal TraCIResult[] SendMessage(TraCICommand command)
 	    {
             var msg = TraCIDataConverter.GetMessageBytes(command);
 #if UNITY_EDITOR
@@ -161,31 +161,51 @@ namespace CodingConnected.TraCI.NET
 		    }
             		    
 		    _client.Client.Send(msg);
-			var bytesRead = await _stream.ReadAsync(_receiveBuffer, 0, 32768);
+			var bytesRead = _stream.Read(_receiveBuffer, 0, 32768);
 #endif
 #if !UNITY_EDITOR
             streamOut.Write(msg,0,msg.Length);
             streamOut.Flush();
-            var bytesRead = await streamIn.ReadAsync(_receiveBuffer, 0, 32768);
+            var bytesRead = streamIn.Read(_receiveBuffer, 0, 32768);
 #endif
             if (bytesRead < 0)
             {
                 // Read returns 0 if the client closes the connection
                 throw new IOException();
             }
-            var response = _receiveBuffer.Take(bytesRead).ToArray();
-            var trresponse = TraCIDataConverter.HandleResponse(response);
+
+            var revLength = _receiveBuffer.Take(4).Reverse().ToArray();
+            var totlength = BitConverter.ToInt32(revLength, 0);
+            var response = new List<byte>(); 
+            response.AddRange(_receiveBuffer.Take(bytesRead).ToArray());
+
+            if (bytesRead != totlength)
+            {
+                while (bytesRead < totlength)
+                {
+#if UNITY_EDITOR
+                    var innerBytesRead = _stream.Read(_receiveBuffer, 0, 32768);
+#endif
+#if !UNITY_EDITOR
+                    var innerBytesRead = streamIn.Read(_receiveBuffer, 0, 32768);
+#endif
+                    response.AddRange(_receiveBuffer.Take(innerBytesRead).ToArray());
+                    bytesRead += innerBytesRead;
+                }
+            }
+            //var response = _receiveBuffer.Take(bytesRead).ToArray();
+            var trresponse = TraCIDataConverter.HandleResponse(response.ToArray());
             return trresponse?.Length > 0 ? trresponse : null;
             //return null;
         }
 
-        #endregion // Public Methods
+#endregion // Public Methods
 
-        #region Private Methods
+#region Private Methods
 
-        #endregion // Private Methods
+#endregion // Private Methods
 
-        #region Constructor
+#region Constructor
 
         public TraCIClient()
 	    {

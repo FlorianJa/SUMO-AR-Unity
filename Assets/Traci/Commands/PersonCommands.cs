@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of ids of all persons currently running within the scenario (the given person ID is ignored)
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<List<string>>(
                     Client,
                     "ignored",
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -27,10 +26,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// 	Returns the number of persons currently running within the scenario (the given person ID is ignored)
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetIdCount()
+        public TraCIResponse<int> GetIdCount()
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<int>(
                     Client,
                     "ignored",
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -42,10 +41,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetSpeed(string id)
+        public TraCIResponse<double> GetSpeed(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -57,10 +56,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<Position2D>> GetPosition(string id)
+        public TraCIResponse<Position2D> GetPosition(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Position2D>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<Position2D>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -72,10 +71,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<Position3D>> GetPosition3D(string id)
+        public TraCIResponse<Position3D> GetPosition3D(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Position3D>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<Position3D>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -87,10 +86,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetAngle(string id)
+        public TraCIResponse<double> GetAngle(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -102,10 +101,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<string>> GetRoadID(string id)
+        public TraCIResponse<string> GetRoadID(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<string>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -117,10 +116,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<string>> GetTypeID(string id)
+        public TraCIResponse<string> GetTypeID(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<string>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -132,10 +131,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<Color>> GetColor(string id)
+        public TraCIResponse<Color> GetColor(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Color>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<Color>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -147,10 +146,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetLanePosition(string id)
+        public TraCIResponse<double> GetLanePosition(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -162,10 +161,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetLength(string id)
+        public TraCIResponse<double> GetLength(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -177,10 +176,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetMinGap(string id)
+        public TraCIResponse<double> GetMinGap(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -192,10 +191,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetWidth(string id)
+        public TraCIResponse<double> GetWidth(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -207,10 +206,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<double>> GetWaitingTime(string id)
+        public TraCIResponse<double> GetWaitingTime(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<double>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -222,10 +221,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<string>> GetNextEdge(string id)
+        public TraCIResponse<string> GetNextEdge(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<string>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -237,10 +236,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetRemainingStages(string id)
+        public TraCIResponse<int> GetRemainingStages(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<int>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -252,10 +251,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<string>> GetVehicle(string id)
+        public TraCIResponse<string> GetVehicle(string id)
         {
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+            return
+                TraCICommandHelper.ExecuteGetCommand<string>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_PERSON_VARIABLE,
@@ -273,7 +272,7 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="departTime"></param>
         /// <param name="departPosition"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> Add(string id, string typeId, string initialEdgeId, int departTime, double departPosition)
+        public TraCIResponse<object> Add(string id, string typeId, string initialEdgeId, int departTime, double departPosition)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIString() { Value = typeId });
@@ -281,7 +280,7 @@ namespace CodingConnected.TraCI.NET.Commands
             tmp.Value.Add(new TraCIInteger() { Value = departTime });
             tmp.Value.Add(new TraCIDouble() { Value = departPosition });
 
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                      Client,
                      id,
                      TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -298,14 +297,14 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="lines"></param>
         /// <param name="stopId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> AppendDrivingStage(string id, string destination, string lines, string stopId)
+        public TraCIResponse<object> AppendDrivingStage(string id, string destination, string lines, string stopId)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIInteger() { Value = 3 });
             tmp.Value.Add(new TraCIString() { Value = destination });
             tmp.Value.Add(new TraCIString() { Value = lines });
             tmp.Value.Add(new TraCIString() { Value = stopId });
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -322,14 +321,14 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="description"></param>
         /// <param name="stopId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> AppendWaitingStage(string id, int duration, string description, string stopId)
+        public TraCIResponse<object> AppendWaitingStage(string id, int duration, string description, string stopId)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIInteger() { Value = 1 });
             tmp.Value.Add(new TraCIInteger() { Value = duration });
             tmp.Value.Add(new TraCIString() { Value = description });
             tmp.Value.Add(new TraCIString() { Value = stopId });
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -348,14 +347,14 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="speed"></param>
         /// <param name="stopId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> AppendWalkingStage(string id, List<string> edges, double arrivalPosition, int duration, double speed, string stopId)
+        public TraCIResponse<object> AppendWalkingStage(string id, List<string> edges, double arrivalPosition, int duration, double speed, string stopId)
         {
             var tmp = new CompoundObject();
             tmp.Value.Add(new TraCIInteger() { Value = 2 });
             tmp.Value.Add(new TraCIStringList() { Value = edges });
             tmp.Value.Add(new TraCIDouble() { Value = arrivalPosition });
             tmp.Value.Add(new TraCIString() { Value = stopId });
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -370,9 +369,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="stageIndex"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> RemoveStage(string id, int stageIndex)
+        public TraCIResponse<object> RemoveStage(string id, int stageIndex)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, int>(
+            return TraCICommandHelper.ExecuteSetCommand<object, int>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -386,10 +385,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> RerouteTraveltime(string id)
+        public TraCIResponse<object> RerouteTraveltime(string id)
         {
 
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, CompoundObject>(
+            return TraCICommandHelper.ExecuteSetCommand<object, CompoundObject>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -404,9 +403,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="color"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetColor(string id, Color color)
+        public TraCIResponse<object> SetColor(string id, Color color)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, Color>(
+            return TraCICommandHelper.ExecuteSetCommand<object, Color>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -421,9 +420,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetHeight(string id, double height)
+        public TraCIResponse<object> SetHeight(string id, double height)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -438,9 +437,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetLength(string id, double length)
+        public TraCIResponse<object> SetLength(string id, double length)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -455,9 +454,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="minGap"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetMinGap(string id, double minGap)
+        public TraCIResponse<object> SetMinGap(string id, double minGap)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -472,9 +471,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="speed"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetSpeed(string id, double speed)
+        public TraCIResponse<object> SetSpeed(string id, double speed)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -489,9 +488,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="typeId"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetType(string id, string typeId)
+        public TraCIResponse<object> SetType(string id, string typeId)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -506,9 +505,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetWidth(string id, double width)
+        public TraCIResponse<object> SetWidth(string id, double width)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_PERSON_VARIABLE,
@@ -519,7 +518,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of ids of all lanes within the scenario (the given Lane ID is ignored)
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -27,10 +26,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns the number of lanes within the scenario (the given Lane ID is ignored)
         /// </summary>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetIdCount()
+		public TraCIResponse<int> GetIdCount()
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -42,10 +41,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<byte>> GetLinkNumber(string id)
+		public TraCIResponse<byte> GetLinkNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<byte>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<byte>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -57,10 +56,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetEdgeId(string id)
+		public TraCIResponse<string> GetEdgeId(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -72,11 +71,11 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<CompoundObject>> GetLinks(string id)
+		public TraCIResponse<CompoundObject> GetLinks(string id)
 		{
             //TODO: parse the result into a usable format
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<CompoundObject>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<CompoundObject>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -88,10 +87,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetAllowed(string id)
+		public TraCIResponse<List<string>> GetAllowed(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -103,10 +102,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetDisallowed(string id)
+		public TraCIResponse<List<string>> GetDisallowed(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -118,10 +117,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetLength(string id)
+		public TraCIResponse<double> GetLength(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -133,10 +132,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetMaxSpeed(string id)
+		public TraCIResponse<double> GetMaxSpeed(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -148,10 +147,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Polygon>> GetShape(string id)
+		public TraCIResponse<Polygon> GetShape(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Polygon>(
+            return 
+				TraCICommandHelper.ExecuteGetCommand<Polygon>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -163,10 +162,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetWidth(string id)
+		public TraCIResponse<double> GetWidth(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -178,10 +177,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetCO2Emission(string id)
+		public TraCIResponse<double> GetCO2Emission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -193,10 +192,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetCOEmission(string id)
+		public TraCIResponse<double> GetCOEmission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -208,10 +207,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetHCEmission(string id)
+		public TraCIResponse<double> GetHCEmission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -223,10 +222,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetPMxEmission(string id)
+		public TraCIResponse<double> GetPMxEmission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -238,10 +237,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetNOxEmission(string id)
+		public TraCIResponse<double> GetNOxEmission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -253,10 +252,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetFuelConsumption(string id)
+		public TraCIResponse<double> GetFuelConsumption(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -268,10 +267,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetNoiseEmission(string id)
+		public TraCIResponse<double> GetNoiseEmission(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -283,10 +282,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetElectricityConsumption(string id)
+		public TraCIResponse<double> GetElectricityConsumption(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -298,10 +297,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetLastStepVehicleNumber(string id)
+		public TraCIResponse<int> GetLastStepVehicleNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -313,10 +312,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetLastStepMeanSpeed(string id)
+		public TraCIResponse<double> GetLastStepMeanSpeed(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -328,10 +327,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetLastStepVehicleIds(string id)
+		public TraCIResponse<List<string>> GetLastStepVehicleIds(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -343,10 +342,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetLastStepOccupancy(string id)
+		public TraCIResponse<double> GetLastStepOccupancy(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -358,10 +357,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetLastStepLength(string id)
+		public TraCIResponse<double> GetLastStepLength(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -373,10 +372,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetWaitingTime(string id)
+		public TraCIResponse<double> GetWaitingTime(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -388,10 +387,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<double>> GetTravelTime(string id)
+		public TraCIResponse<double> GetTravelTime(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<double>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<double>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -404,10 +403,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetLastStepHaltingNumber(string id)
+        public TraCIResponse<int> GetLastStepHaltingNumber(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_LANE_VARIABLE,
@@ -417,10 +416,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <summary>
         /// Sets a list of allowed vehicle classes.
         /// </summary>
-        public async Task<TraCIResponse<object>> SetAllowed(string laneId, List<string> allowedVehicleClasses)
+        public TraCIResponse<object> SetAllowed(string laneId, List<string> allowedVehicleClasses)
         {
-            return await
-                TraCICommandHelper.ExecuteSetCommandAsync<object, List<string>>(
+            return TraCICommandHelper.ExecuteSetCommand<object, List<string>>(
                 Client,
                 laneId,
                 TraCIConstants.CMD_SET_LANE_VARIABLE,
@@ -431,9 +429,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <summary>
         /// Sets a list of disallowed vehicle classes.
         /// </summary>
-        public async Task<TraCIResponse<object>> SetDisallowed(string laneId, List<string> disallowedVehicleClasses)
+        public TraCIResponse<object> SetDisallowed(string laneId, List<string> disallowedVehicleClasses)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, List<string>>(
+            return TraCICommandHelper.ExecuteSetCommand<object, List<string>>(
                 Client,
                 laneId,
                 TraCIConstants.CMD_SET_LANE_VARIABLE,
@@ -444,9 +442,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <summary>
         /// Sets the length of the lane in m
         /// </summary>
-        public async Task<TraCIResponse<object>> SetLength(string laneId, double length)
+        public TraCIResponse<object> SetLength(string laneId, double length)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 laneId,
                 TraCIConstants.CMD_SET_LANE_VARIABLE,
@@ -457,9 +455,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <summary>
         /// Sets a new maximum allowed speed on the lane in m/s.
         /// </summary>
-        public async Task<TraCIResponse<object>> SetMaxSpeed(string laneId, double maxSpeed)
+        public TraCIResponse<object> SetMaxSpeed(string laneId, double maxSpeed)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, double>(
+            return TraCICommandHelper.ExecuteSetCommand<object, double>(
                 Client,
                 laneId,
                 TraCIConstants.CMD_SET_LANE_VARIABLE,
@@ -471,7 +469,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -13,10 +12,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of ids of all junctions within the scenario 
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_JUNCTION_VARIABLE,
@@ -27,10 +26,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns the number of junctions within the scenario
         /// </summary>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetIdCount()
+		public TraCIResponse<int> GetIdCount()
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client,
 					"ignored",
 					TraCIConstants.CMD_GET_JUNCTION_VARIABLE,
@@ -42,10 +41,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Position2D>> GetPosition(string id)
+		public TraCIResponse<Position2D> GetPosition(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Position2D>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Position2D>(
 					Client,
 					id,
 					TraCIConstants.CMD_GET_JUNCTION_VARIABLE,
@@ -57,10 +56,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<Polygon>> GetShape(string id)
+		public TraCIResponse<Polygon> GetShape(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<Polygon>(
+			return
+				TraCICommandHelper.ExecuteGetCommand<Polygon>(
 				Client,
 				id,
 				TraCIConstants.CMD_GET_JUNCTION_VARIABLE,
@@ -70,7 +69,7 @@ namespace CodingConnected.TraCI.NET.Commands
 
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,

@@ -7,7 +7,7 @@ namespace CodingConnected.TraCI.NET.Helpers
 {
 	internal static class TraCICommandHelper
 	{
-        internal async static Task<TraCIResponse<Tres>> ExecuteSetCommandAsync<Tres, Tvalue>(TraCIClient client, string id, byte commandType, byte messageType, Tvalue value)
+        internal static TraCIResponse<Tres> ExecuteSetCommand<Tres, Tvalue>(TraCIClient client, string id, byte commandType, byte messageType, Tvalue value)
         {
             TraCICommand command = null;
 
@@ -68,7 +68,7 @@ namespace CodingConnected.TraCI.NET.Helpers
 
             if (command != null)
             {
-                var response = await client.SendMessageAsync(command);
+                var response = client.SendMessage(command);
 
                 try
                 {
@@ -85,11 +85,11 @@ namespace CodingConnected.TraCI.NET.Helpers
             }
         }
 
-        internal static void ExecuteSubscribeCommandAsync(TraCIClient client, int beginTime, int endTime, string objectId, byte commandType, List<byte> variables)
+        internal static void ExecuteSubscribeCommand(TraCIClient client, int beginTime, int endTime, string objectId, byte commandType, List<byte> variables)
         {
             TraCICommand command = null;
             command = GetCommand(objectId, beginTime, endTime, commandType, variables);
-            var response = client.SendMessageAsync(command);
+            var response = client.SendMessage(command);
 
             //try
             //{
@@ -101,10 +101,10 @@ namespace CodingConnected.TraCI.NET.Helpers
             //}
         }
 
-        internal async static Task<TraCIResponse<T>> ExecuteGetCommandAsync<T>(TraCIClient client, string id, byte commandType, byte messageType)
+        internal static TraCIResponse<T> ExecuteGetCommand<T>(TraCIClient client, string id, byte commandType, byte messageType)
         {
             var command = GetCommand(id, commandType, messageType);
-            var response = await client.SendMessageAsync(command);
+            var response = client.SendMessage(command);
 
             try
             {

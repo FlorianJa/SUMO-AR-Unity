@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using CodingConnected.TraCI.NET.Helpers;
 using CodingConnected.TraCI.NET.Types;
 
@@ -14,10 +13,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns a list of all objects in the network.
         /// </summary>
         /// <returns></returns>
-        public async Task<TraCIResponse<List<string>>> GetIdList()
+        public TraCIResponse<List<string>> GetIdList()
 		{
-			return await
-				TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -28,10 +27,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// Returns the number of currently loaded objects.
         /// </summary>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetIdCount()
+		public TraCIResponse<int> GetIdCount()
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					"ignored", 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -45,10 +44,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<string>> GetState(string id)
+        public TraCIResponse<string> GetState(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -62,10 +61,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetPhaseDuration(string id)
+		public TraCIResponse<int> GetPhaseDuration(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -78,10 +77,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<List<string>>> GetControlledLanes(string id)
+		public TraCIResponse<List<string>> GetControlledLanes(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<List<string>>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<List<string>>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -94,9 +93,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<ControlledLinks>> GetControlledLinks(string id)
+		public TraCIResponse<ControlledLinks> GetControlledLinks(string id)
 		{
-            var tmp = await TraCICommandHelper.ExecuteGetCommandAsync<CompoundObject>(
+            var tmp = TraCICommandHelper.ExecuteGetCommand<CompoundObject>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -122,10 +121,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<int>> GetCurrentPhase(string id)
+		public TraCIResponse<int> GetCurrentPhase(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -137,10 +136,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<string>> GetCurrentProgram(string id)
+		public TraCIResponse<string> GetCurrentProgram(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<string>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<string>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -152,9 +151,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-		public async Task<TraCIResponse<TrafficCompleteLightProgram>> GetCompleteDefinition(string id)
+		public TraCIResponse<TrafficCompleteLightProgram> GetCompleteDefinition(string id)
 		{
-            var tmp = await TraCICommandHelper.ExecuteGetCommandAsync<CompoundObject>(
+            var tmp = TraCICommandHelper.ExecuteGetCommand<CompoundObject>(
                     Client,
                     id,
                     TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -184,10 +183,10 @@ namespace CodingConnected.TraCI.NET.Commands
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<int>> GetNextSwitch(string id)
+        public TraCIResponse<int> GetNextSwitch(string id)
 		{
-            return await
-                TraCICommandHelper.ExecuteGetCommandAsync<int>(
+			return 
+				TraCICommandHelper.ExecuteGetCommand<int>(
 					Client, 
 					id, 
 					TraCIConstants.CMD_GET_TL_VARIABLE,
@@ -204,9 +203,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetRedYellowGreenState(string id, string state)
+        public TraCIResponse<object> SetRedYellowGreenState(string id, string state)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_TL_VARIABLE,
@@ -222,9 +221,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="phaseIndex"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetPhase(string id, int phaseIndex)
+        public TraCIResponse<object> SetPhase(string id, int phaseIndex)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, int>(
+            return TraCICommandHelper.ExecuteSetCommand<object, int>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_TL_VARIABLE,
@@ -239,9 +238,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="program"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetProgram(string id, string program)
+        public TraCIResponse<object> SetProgram(string id, string program)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, string>(
+            return TraCICommandHelper.ExecuteSetCommand<object, string>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_TL_VARIABLE,
@@ -255,9 +254,9 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="phaseDuration"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetPhaseDuration(string id, int phaseDuration)
+        public TraCIResponse<object> SetPhaseDuration(string id, int phaseDuration)
         {
-            return await TraCICommandHelper.ExecuteSetCommandAsync<object, int>(
+            return TraCICommandHelper.ExecuteSetCommand<object, int>(
                 Client,
                 id,
                 TraCIConstants.CMD_SET_TL_VARIABLE,
@@ -271,7 +270,7 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="id"></param>
         /// <param name="program"></param>
         /// <returns></returns>
-        public async Task<TraCIResponse<object>> SetCompleteRedYellowGreenDefinition(string id, TrafficLightProgram program)
+        public TraCIResponse<object> SetCompleteRedYellowGreenDefinition(string id, TrafficLightProgram program)
         {
             // TODO: move this to TraCICommandHelper.ExecuteSetCommand
             
@@ -308,7 +307,7 @@ namespace CodingConnected.TraCI.NET.Commands
                 Contents = bytes.ToArray()
             };
 
-            var response = await Client.SendMessageAsync(command);
+            var response = Client.SendMessage(command);
 
 #warning is the try catch necessary?
             try
@@ -330,7 +329,7 @@ namespace CodingConnected.TraCI.NET.Commands
         /// <param name="ListOfVariablesToSubsribeTo"></param>
         public void Subscribe(string objectId, int beginTime, int endTime, List<byte> ListOfVariablesToSubsribeTo)
         {
-            TraCICommandHelper.ExecuteSubscribeCommandAsync(
+            TraCICommandHelper.ExecuteSubscribeCommand(
                 Client,
                 beginTime,
                 endTime,
