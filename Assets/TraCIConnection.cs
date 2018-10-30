@@ -71,17 +71,19 @@ public class TraCIConnection : MonoBehaviour {
 
     public IEnumerator UpdateCars(List<TraCISubscriptionResponse> cars) //, double angle
     {
-        foreach (var car in cars)
+        if (cars != null)
         {
-            var pos = (car.Responses[0] as TraCIResponse<Position2D>).Content;
-            var angle = (car.Responses[1] as TraCIResponse<double>).Content;
+            foreach (var car in cars)
+            {
+                var pos = (car.Responses[0] as TraCIResponse<Position2D>).Content;
+                var angle = (car.Responses[1] as TraCIResponse<double>).Content;
                 //lock (updateDictionary)
-        //{
-            _cars[car.ObjectId].transform.position = new Vector3((float)pos.X * 0.0002f, 0, (float)pos.Y * 0.0002f);
-            _cars[car.ObjectId].transform.rotation = Quaternion.Euler(0, (float)angle, 0);
-            //}
+                //{
+                _cars[car.ObjectId].transform.position = new Vector3((float)pos.X * 0.0002f, 0, (float)pos.Y * 0.0002f);
+                _cars[car.ObjectId].transform.rotation = Quaternion.Euler(0, (float)angle, 0);
+                //}
+            }
         }
-
         yield return null;
     }
 
@@ -99,34 +101,29 @@ public class TraCIConnection : MonoBehaviour {
         {
             var car = (GameObject)Instantiate(CarPrefab, CarContainer.transform);
             car.name = id;
-            //lock (updateDictionary)
-            //{
             _cars.Add(id, car);
-            //}
         }
         yield return null;
     }
 
     public IEnumerator UpdateDicitionary(List<string> idList, bool removeFromDictionary = false) //, double angle
     {
-        foreach (var id in idList)
+        if (idList.Count > 0)
         {
-            if (removeFromDictionary)
+            foreach (var id in idList)
             {
-                var tmp = _cars[id];
-                _cars.Remove(id);
-
-                //Destroy(tmp);
-
-            }
-            else
-            {
-                var car = (GameObject)Instantiate(CarPrefab, CarContainer.transform);
-                car.name = id;
-                //lock (updateDictionary)
-                //{
-                _cars.Add(id, car);
-                //}
+                if (removeFromDictionary)
+                {
+                    var tmp = _cars[id];
+                    _cars.Remove(id);
+                    Destroy(tmp);
+                }
+                else
+                {
+                    var car = (GameObject)Instantiate(CarPrefab, CarContainer.transform);
+                    car.name = id;
+                    _cars.Add(id, car);
+                }
             }
         }
         yield return null;
@@ -150,76 +147,33 @@ public class TraCIConnection : MonoBehaviour {
                     BackgroundSimulationTask = Task.Run(() =>
                     {
                         var tmp = client.Control.SimStep();
-                        //if (tmp.Result != ResultCode.Success)
-                        //{
+                        
+                        vehicleIds = client.Simulation.GetDepartedIDList("");
+                        UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(vehicleIds.Content)); //create cars and add to dicitionary
 
-                        //}
-
-                        vehicleIds = client.Simulation.GetDepartedIDList();
-                        //vehicleIdRecieved = true;
                         foreach (var id in vehicleIds.Content)
                         {
-                            client.Vehicle.Subscribe(id, 0, 10000 * 1000, new List<byte>() { TraCIConstants.VAR_POSITION, TraCIConstants.VAR_ANGLE });
+                            client.Vehicle.Subscribe(id, 0, 10000 * 1000, new List<byte>() { TraCIConstants.VAR_POSITION, TraCIConstants.VAR_ANGLE }); //subscribe to postion and angle values
                         }
 
-                        UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(vehicleIds.Content));//,angle.Content));
-
-                        vehicleIds = client.Simulation.GetArrivedIDList("");
                         //foreach (var id in vehicleIds.Content)
                         //{
-                            UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(vehicleIds.Content, true));
+                        //    UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(id));
                         //}
-                        var responses = tmp.Content as List<TraCISubscriptionResponse>;
-                        //Debug.Log(responses.Count);
-                        //if (responses != null)
+
+                        vehicleIds = client.Simulation.GetArrivedIDList("");
+                        UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(vehicleIds.Content, true)); //delete cars that arrived
+
+                        //foreach (var id in vehicleIds.Content)
                         //{
-                        //    foreach (var response in responses)
-                        //    {
-                        UnityMainThreadDispatcher.Instance().Enqueue(UpdateCars(responses));//,angle.Content));
-                        //    }
+                        //    UnityMainThreadDispatcher.Instance().Enqueue(UpdateDicitionary(id,true));
                         //}
+
+                        var responses = tmp.Content as List<TraCISubscriptionResponse>;
+                        UnityMainThreadDispatcher.Instance().Enqueue(UpdateCars(responses)); // move the cars
                     });
                 }
             }
-        }
-    }
-
-    void UpdateSim()
-    {
-        while (true)
-        {
-            //if (!pauseSimulation)
-            //{
-            //    var tmp = client.Control.SimStep();
-            //    if(tmp.Result != ResultCode.Success)
-            //    {
-
-            //    }
-            //    lock (vehicleSyncLock)
-            //    {
-            //        vehicleIds = client.Simulation.GetDepartedIDList();
-            //    }
-            //    vehicleIdRecieved = true;
-
-            //    lock (newCarLock)
-            //    {
-            //        while (newCars.Count > 0)
-            //        {
-            //            client.Vehicle.Subscribe(newCars.Dequeue(), 0, 7200 * 1000, new List<byte>() { TraCIConstants.VAR_POSITION }); //TraCIConstants.VAR_ANGLE
-            //        }
-            //    }
-
-            //    //lock(vehicleSyncLock)
-            //    //{
-            //    //    vehicleIds.Clear();
-            //    //    foreach (var id in tmpAllVehicles.Content)
-            //    //    {
-            //    //        vehicleIds.Add(id);
-            //    //    }
-            //    //}
-
-            //    //System.Threading.Thread.Sleep(10);
-            //}
         }
     }
 

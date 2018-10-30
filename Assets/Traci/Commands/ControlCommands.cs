@@ -55,18 +55,18 @@ namespace CodingConnected.TraCI.NET.Commands
 		/// Note: the size of the step is set via the relevant .sumcfg file
 		/// </summary>
 		/// <param name="targetTime">If this is not 0, SUMO will run until target time is reached</param>
-		public TraCIResponse<object> SimStep(int targetTime = 0)
+		public TraCIResponse<object> SimStep(double targetTime = 0)
 		{
 			var command = new TraCICommand
 			{
 				Identifier = TraCIConstants.CMD_SIMSTEP,
-				Contents = TraCIDataConverter.GetTraCIBytesFromInt32(targetTime)
+				Contents = TraCIDataConverter.GetTraCIBytesFromDouble(targetTime)
 			};
 
 			var response = Client.SendMessage(command);
             var tmp = TraCIDataConverter.ExtractDataFromResponse<object>(response, TraCIConstants.CMD_SIMSTEP);
 
-            if (tmp != null && tmp.Content != null)
+            if (tmp.Content != null)
             {
                 var listOfSubscriptions = tmp.Content as List<TraCISubscriptionResponse>;
                 foreach (var item in listOfSubscriptions)
@@ -129,7 +129,6 @@ namespace CodingConnected.TraCI.NET.Commands
             }
 
             return tmp;
-
         }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿using CodingConnected.TraCI.NET.Types;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CodingConnected.TraCI.NET.Helpers
 {
@@ -11,59 +10,42 @@ namespace CodingConnected.TraCI.NET.Helpers
         {
             TraCICommand command = null;
 
-            if (value is byte)
+            switch (value)
             {
-                byte b = Convert.ToByte(value);
-                command = GetCommand(id, commandType, messageType, b);
-            }
-            else if( value is Int32)
-            {
-                int i = Convert.ToInt32(value);
-                command = GetCommand(id, commandType, messageType, i);
-            }
-            else if(value is Double)
-            {
-                double d = Convert.ToDouble(value);
-                command = GetCommand(id, commandType, messageType, d);
-            }
-            else if (value is String)
-            {
-                string s = value as string;
-                command = GetCommand(id, commandType, messageType, s);
-            }
-            else if (value is List<string>)
-            {
-                List<string> los = value as List<string>;
-                command = GetCommand(id, commandType, messageType, los);
-            }
-            else if(value is CompoundObject)
-            {
-                CompoundObject co = value as CompoundObject;
-                command = GetCommand(id, commandType, messageType, co);
-            }
-            else if(value is Color)
-            {
-                Color c = value as Color;
-                command = GetCommand(id, commandType, messageType, c);
-            }
-            else if(value is Position2D)
-            {
-                Position2D p2d = value as Position2D;
-                command = GetCommand(id, commandType, messageType, p2d);
-            }
-            else if(value is Polygon)
-            {
-                Polygon p = value as Polygon;
-                command = GetCommand(id, commandType, messageType, p);
-            }
-            else if(value is BoundaryBox)
-            {
-                BoundaryBox bb = value as BoundaryBox;
-                command = GetCommand(id, commandType, messageType, bb);
-            }
-            else
-            {
-                throw new InvalidCastException($"Type {value.GetType().Name} is not implemented in method TraCICommandHelper.ExecuteSetCommand().");
+                case byte b:
+                    command = GetCommand(id, commandType, messageType, b);
+                    break;
+                case int i:
+                    command = GetCommand(id, commandType, messageType, i);
+                    break;
+                case double d:
+                    command = GetCommand(id, commandType, messageType, d);
+                    break;
+                case string s:
+                    command = GetCommand(id, commandType, messageType, s);
+                    break;
+                case List<string> los:
+                    command = GetCommand(id, commandType, messageType, los);
+                    break;
+                case CompoundObject co:
+                    command = GetCommand(id, commandType, messageType, co);
+                    break;
+                case Color c:
+                    command = GetCommand(id, commandType, messageType, c);
+                    break;
+                case Position2D p2d:
+                    command = GetCommand(id, commandType, messageType, p2d);
+                    break;
+                case Polygon p:
+                    command = GetCommand(id, commandType, messageType, p);
+                    break;
+                case BoundaryBox bb:
+                    command = GetCommand(id, commandType, messageType, bb);
+                    break;
+                default:
+                    {
+                        throw new InvalidCastException($"Type {value.GetType().Name} is not implemented in method TraCICommandHelper.ExecuteSetCommand().");
+                    }
             }
 
             if (command != null)
@@ -81,11 +63,11 @@ namespace CodingConnected.TraCI.NET.Helpers
             }
             else
             {
-                return default(TraCIResponse<Tres>);
+                return default;
             }
         }
 
-        internal static void ExecuteSubscribeCommand(TraCIClient client, int beginTime, int endTime, string objectId, byte commandType, List<byte> variables)
+        internal static void ExecuteSubscribeCommand(TraCIClient client, double beginTime, double endTime, string objectId, byte commandType, List<byte> variables)
         {
             TraCICommand command = null;
             command = GetCommand(objectId, beginTime, endTime, commandType, variables);
@@ -116,11 +98,11 @@ namespace CodingConnected.TraCI.NET.Helpers
             }
         }
 
-        internal static TraCICommand GetCommand(string objectId, int beginTime, int endTime, byte commandType, List<byte> variables)
+        internal static TraCICommand GetCommand(string objectId, double beginTime, double endTime, byte commandType, List<byte> variables)
         {
             var bytes = new List<byte>();
-            bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromInt32(beginTime));
-            bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromInt32(endTime));
+            bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromDouble(beginTime));
+            bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromDouble(endTime));
             bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromASCIIString(objectId));
             bytes.Add((byte)variables.Count);
             foreach (var variable in variables)
@@ -144,111 +126,76 @@ namespace CodingConnected.TraCI.NET.Helpers
             bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromInt32(co.Value.Count));
             foreach (var item in co.Value)
             {
-                if (item is TraCIByte)
+                switch (item)
                 {
-                    TraCIByte b = item as TraCIByte;
-                    bytes.Add(TraCIConstants.TYPE_BYTE);
-                    bytes.Add(b.Value);
-                }
-                else if (item is TraCIUByte)
-                {
-                    TraCIUByte ub = item as TraCIUByte;
-                    bytes.Add(TraCIConstants.TYPE_UBYTE);
-                    bytes.Add(ub.Value);
-                }
-                else if (item is TraCIInteger)
-                {
-                    TraCIInteger i = item as TraCIInteger;
-                    bytes.Add(TraCIConstants.TYPE_INTEGER);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromInt32(i.Value));
-                }
-                else if (item is TraCIFloat)
-                {
-                    TraCIFloat f = item as TraCIFloat;
-                    bytes.Add(TraCIConstants.TYPE_FLOAT);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromFloat(f.Value));
-                }
-                else if (item is TraCIDouble)
-                {
-                    TraCIDouble d = item as TraCIDouble;
-                    bytes.Add(TraCIConstants.TYPE_DOUBLE);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromDouble(d.Value));
-
-                }
-                else if (item is TraCIString)
-                {
-                    TraCIString s = item as TraCIString;
-                    bytes.Add(TraCIConstants.TYPE_STRING);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromASCIIString(s.Value));
-                }
-                else if (item is TraCIStringList)
-                {
-                    TraCIStringList sl = item as TraCIStringList;
-                    bytes.Add(TraCIConstants.TYPE_STRINGLIST);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromASCIIStringList(sl.Value));
-                }
-                else if (item is CompoundObject)
-                {
-                    throw new NotImplementedException("Nested compound objects are not implemented yet");
-                }
-                else if (item is Position2D)
-                {
-                    Position2D p2d = item as Position2D;
-                    bytes.Add(TraCIConstants.POSITION_2D);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPosition2D(p2d));
-                }
-                else if (item is Position3D)
-                {
-                    Position3D p3d = item as Position3D;
-                    bytes.Add(TraCIConstants.POSITION_3D);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPosition3D(p3d));
-                }
-                else if (item is RoadMapPosition)
-                {
-                    RoadMapPosition rmp = item as RoadMapPosition;
-                    bytes.Add(TraCIConstants.POSITION_ROADMAP);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromRoadMapPosition(rmp));
-                }
-                else if (item is LonLatPosition)
-                {
-                    LonLatPosition llp = item as LonLatPosition;
-                    bytes.Add(TraCIConstants.POSITION_LON_LAT);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromLonLatPosition(llp));
-                }
-                else if (item is LonLatAltPosition)
-                {
-                    LonLatAltPosition llap = item as LonLatAltPosition;
-                    bytes.Add(TraCIConstants.POSITION_LON_LAT_ALT);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromLonLatAltPosition(llap));
-                }
-                else if (item is BoundaryBox)
-                {
-                    BoundaryBox bb = item as BoundaryBox;
-                    bytes.Add(TraCIConstants.TYPE_BOUNDINGBOX);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromBoundaryBox(bb));
-                }
-                else if (item is Polygon)
-                {
-                    Polygon p = item as Polygon;
-                    bytes.Add(TraCIConstants.TYPE_POLYGON);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPolygon(p));
-                }
-                else if (item is TrafficLightPhaseList)
-                {
-                    TrafficLightPhaseList tlpl = item as TrafficLightPhaseList;
-                    bytes.Add(TraCIConstants.TYPE_TLPHASELIST);
-                    bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromTrafficLightPhaseList(tlpl));
-                }
-                else if (item is Color)
-                {
+                    case TraCIByte b:
+                        bytes.Add(TraCIConstants.TYPE_BYTE);
+                        bytes.Add(b.Value);
+                        break;
+                    case TraCIUByte ub:
+                        bytes.Add(TraCIConstants.TYPE_UBYTE);
+                        bytes.Add(ub.Value);
+                        break;
+                    case TraCIInteger i:
+                        bytes.Add(TraCIConstants.TYPE_INTEGER);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromInt32(i.Value));
+                        break;
+                    case TraCIFloat f:
+                        bytes.Add(TraCIConstants.TYPE_FLOAT);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromFloat(f.Value));
+                        break;
+                    case TraCIDouble d:
+                        bytes.Add(TraCIConstants.TYPE_DOUBLE);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromDouble(d.Value));
+                        break;
+                    case TraCIString s:
+                        bytes.Add(TraCIConstants.TYPE_STRING);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromASCIIString(s.Value));
+                        break;
+                    case TraCIStringList sl:
+                        bytes.Add(TraCIConstants.TYPE_STRINGLIST);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromASCIIStringList(sl.Value));
+                        break;
+                    case CompoundObject CO:
+                        throw new NotImplementedException("Nested compound objects are not implemented yet");
+                        break;
+                    case Position2D p2d:
+                        bytes.Add(TraCIConstants.POSITION_2D);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPosition2D(p2d));
+                        break;
+                    case Position3D p3d:
+                        bytes.Add(TraCIConstants.POSITION_3D);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPosition3D(p3d));
+                        break;
+                    case RoadMapPosition rmp:
+                        bytes.Add(TraCIConstants.POSITION_ROADMAP);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromRoadMapPosition(rmp));
+                        break;
+                    case LonLatPosition llp:
+                        bytes.Add(TraCIConstants.POSITION_LON_LAT);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromLonLatPosition(llp));
+                        break;
+                    case LonLatAltPosition llap:
+                        bytes.Add(TraCIConstants.POSITION_LON_LAT_ALT);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromLonLatAltPosition(llap)); 
+                        break;
+                    case BoundaryBox bb:
+                        bytes.Add(TraCIConstants.TYPE_BOUNDINGBOX);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromBoundaryBox(bb));
+                        break;
+                    case Polygon p:
+                        bytes.Add(TraCIConstants.TYPE_POLYGON);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromPolygon(p));
+                        break;
+                    case TrafficLightPhaseList tlpl:
+                        bytes.Add(TraCIConstants.TYPE_TLPHASELIST);
+                        bytes.AddRange(TraCIDataConverter.GetTraCIBytesFromTrafficLightPhaseList(tlpl));
+                        break;
+                    case Color c:
 #warning missing code
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    throw new InvalidCastException($"Type {item.GetType().Name} is not implemented");
-                }
-            }
+                        throw new NotImplementedException();
+                        break;
+            } }
 
             var command = new TraCICommand
             {
