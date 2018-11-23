@@ -25,12 +25,17 @@ public class TraCIConnection : MonoBehaviour {
     private object newCarLock = new object();
     private object updateDictionary = new object();
 
+    private Queue<string> EdgesToClose;
+
     // Use this for initialization
     async void Start ()
     {
         vehicleIds = new TraCIResponse<List<string>>();
         _cars = new Dictionary<string, GameObject>();
+        EdgesToClose = new Queue<string>();
+
         client = new TraCIClient();
+
 
         await client.ConnectAsync(Hostname, Port);
         //client.VehicleSubscription += Client_VehicleSubscription;
@@ -79,8 +84,8 @@ public class TraCIConnection : MonoBehaviour {
                 var angle = (car.Responses[1] as TraCIResponse<double>).Content;
                 //lock (updateDictionary)
                 //{
-                _cars[car.ObjectId].transform.position = new Vector3((float)pos.X * 0.0002f, 0, (float)pos.Y * 0.0002f);
-                _cars[car.ObjectId].transform.rotation = Quaternion.Euler(0, (float)angle, 0);
+                _cars[car.ObjectId].transform.localPosition = new Vector3((float)pos.X * 0.0002f, 0, (float)pos.Y * 0.0002f);
+                _cars[car.ObjectId].transform.localRotation = Quaternion.Euler(0, (float)angle, 0);
                 //}
             }
         }
@@ -131,12 +136,12 @@ public class TraCIConnection : MonoBehaviour {
 
     //Update is called once per frame
     float timer = 0;
-
+    public float delay = 0.15f;
     void Update()
     {
         timer += Time.deltaTime;
 
-        if (timer >= 0.1f)
+        if (timer >= delay)
         {
             if (!SimulationPaused)
             {
@@ -146,6 +151,21 @@ public class TraCIConnection : MonoBehaviour {
 
                     BackgroundSimulationTask = Task.Run(() =>
                     {
+                        if(EdgesToClose.Count > 0)
+                        {
+                            while(EdgesToClose.Count > 0)
+                            {
+                                var edgeId = EdgesToClose.Dequeue();
+
+                                var numberOfLanes = client.Edge.GetLaneNumber(edgeId);
+
+                                for (int i = 0; i < numberOfLanes.Content; i++)
+                                {
+                                    client.Lane.SetAllowed(edgeId + "_" + i.ToString(), new List<string>() { "authority" });
+                                }
+                            }
+                        }
+
                         var tmp = client.Control.SimStep();
                         
                         vehicleIds = client.Simulation.GetDepartedIDList("");
@@ -175,6 +195,11 @@ public class TraCIConnection : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void CloseEdge(string edgeId)
+    {
+        EdgesToClose.Enqueue(edgeId);
     }
 
 }

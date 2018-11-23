@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using UnityEngine;
 
-#if !UNITY_EDITOR
+#if UNITY_WSA
 using System.Threading.Tasks;
 #endif
 
@@ -15,23 +15,23 @@ public class CustomTcpClient : MonoBehaviour
     public event EventHandler<byte[]> DataReceived;
     public bool Connected { get
         {
-#if !UNITY_EDITOR
+#if UNITY_WSA
             return false;
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
             return client.Connected;
 #endif
         }
     }
 
-#if !UNITY_EDITOR
+#if UNITY_WSA
     private bool _useUWP = true;
     private Windows.Networking.Sockets.StreamSocket socket;
     private Task exchangeTask;
 #endif
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID || UNITY_STANDALONE
     private bool _useUWP = false;
     System.Net.Sockets.TcpClient client;
     System.Net.Sockets.NetworkStream stream;
@@ -55,13 +55,13 @@ public class CustomTcpClient : MonoBehaviour
 
 
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
     private void ConnectUWP(string host, string port)
 #else
     private async void ConnectUWP(string host, string port)
 #endif
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
 #else
         try
         {
@@ -87,7 +87,7 @@ public class CustomTcpClient : MonoBehaviour
 
     private void ConnectUnity(string host, string port)
     {
-#if !UNITY_EDITOR
+#if UNITY_WSA
 #else
         try
         {
@@ -114,7 +114,7 @@ public class CustomTcpClient : MonoBehaviour
 
     public void RestartExchange()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
         if (exchangeThread != null) StopExchange();
         readStopRequested = false;
         exchangeThread = new System.Threading.Thread(ReadPackets);
@@ -133,7 +133,7 @@ public class CustomTcpClient : MonoBehaviour
 
     public bool SentData(byte[] data)
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
         if (writer == null || reader == null) return false;
         client.Client.Send(data);
         return true;
@@ -146,7 +146,7 @@ public class CustomTcpClient : MonoBehaviour
     {
         
         string received = null;
-        #if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
         byte[] _receiveBuffer = new byte[client.SendBufferSize];
 #endif
         while (!readStopRequested)
@@ -154,7 +154,7 @@ public class CustomTcpClient : MonoBehaviour
             if (writer == null || reader == null) continue;
             reading = true;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
             var bytesRead = stream.Read(_receiveBuffer, 0, client.SendBufferSize);
             if (bytesRead < 0)
             {
@@ -183,7 +183,7 @@ public class CustomTcpClient : MonoBehaviour
     {
         readStopRequested = true;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
         if (exchangeThread != null)
         {
             exchangeThread.Abort();

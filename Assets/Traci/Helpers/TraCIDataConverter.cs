@@ -43,7 +43,8 @@ namespace CodingConnected.TraCI.NET.Helpers
                         // after the string is the type of data returned
                         var type = r2.Response[5 + idl];
                         // now read and translate the data
-                        GetValueFromTypeAndArray(type, r2.Response.Skip(6 + idl).ToArray(), out object contentAsObject);
+                        object contentAsObject;
+                        GetValueFromTypeAndArray(type, r2.Response.Skip(6 + idl).ToArray(), out contentAsObject);
 
 
                         return new TraCIResponse<T>
@@ -64,7 +65,7 @@ namespace CodingConnected.TraCI.NET.Helpers
                             ResponseIdentifier = null,
                             Variable = null,
                             Result = ResultCode.Success,
-                            Content = default
+                            Content = default(T)
                         };
                     }
                 }
@@ -87,7 +88,7 @@ namespace CodingConnected.TraCI.NET.Helpers
                         ResponseIdentifier = null,
                         Variable = null,
                         Result = ResultCode.Failed,
-                        Content = default,
+                        Content = default(T),
                         ErrorMessage = "TraCI reports command failure: " + sb
                     };
                 }
@@ -110,7 +111,7 @@ namespace CodingConnected.TraCI.NET.Helpers
                         ResponseIdentifier = null,
                         Variable = null,
                         Result = ResultCode.NotImplemented,
-                        Content = default,
+                        Content = default(T),
                         ErrorMessage = "TraCI reports command not implemented: " + sb
                     };
                 }
@@ -145,7 +146,8 @@ namespace CodingConnected.TraCI.NET.Helpers
                     var subResponseCode = r1.Response[offset++];
 
                     // extract the object id
-                    offset = GetString(r1.Response, offset, out TraCIString objectId);
+                    TraCIString objectId;
+                    offset = GetString(r1.Response, offset, out objectId);
 
                     // extract the number of variables
                     var countVaribales = r1.Response[offset++];
@@ -160,9 +162,9 @@ namespace CodingConnected.TraCI.NET.Helpers
                         var variable = r1.Response[offset++];
                         var result = r1.Response[offset++];
                         var datatype = r1.Response[offset++];
-
+                        object contentAsObject;
                         // extract value by datatype
-                        offset += GetValueFromTypeAndArray(datatype, r1.Response.Skip(offset), out object contentAsObject);
+                        offset += GetValueFromTypeAndArray(datatype, r1.Response.Skip(offset), out contentAsObject);
                         
                         switch (datatype)
                         {
@@ -607,97 +609,113 @@ namespace CodingConnected.TraCI.NET.Helpers
             {
                 case TraCIConstants.POSITION_LON_LAT:
                     {
-                        var newOffset = GetPositionLonLat(array, 0, out LonLatPosition lonLatPosition);
+                        LonLatPosition lonLatPosition;
+                        var newOffset = GetPositionLonLat(array, 0, out lonLatPosition);
                         Object = lonLatPosition;
                         return newOffset;
                     }
                 case TraCIConstants.POSITION_2D:
                     {
-                        var newOffset = Get2DPosition(array, 0, out Position2D position2D);
+                        Position2D position2D;
+                        var newOffset = Get2DPosition(array, 0, out position2D);
                         Object = position2D;
                         return newOffset;
                     }
                 case TraCIConstants.POSITION_LON_LAT_ALT:
                     {
-                        var newOffset = GetPositionLonLatAlt(array, 0, out LonLatAltPosition lonLatAltPosition);
+                        LonLatAltPosition lonLatAltPosition;
+                        var newOffset = GetPositionLonLatAlt(array, 0, out lonLatAltPosition);
                         Object = lonLatAltPosition;
                         return newOffset;
                     }
                 case TraCIConstants.POSITION_3D:
                     {
-                        var newOffset = GetPostion3D(array, 0, out Position3D position3D);
+                        Position3D position3D;
+                        var newOffset = GetPostion3D(array, 0, out position3D);
                         Object = position3D;
                         return newOffset;
                     }
                 case TraCIConstants.POSITION_ROADMAP:
                     {
-                        var newOffset = GetPositionRoadmap(array, 0, out RoadMapPosition roadMapPosition);
+                        RoadMapPosition roadMapPosition;
+                        var newOffset = GetPositionRoadmap(array, 0, out roadMapPosition);
                         Object = roadMapPosition;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_BOUNDINGBOX:
                     {
-                        var newOffset = GetBoundaryBox(array, 0, out BoundaryBox boundaryBox);
+                        BoundaryBox boundaryBox;
+                        var newOffset = GetBoundaryBox(array, 0, out boundaryBox);
                         Object = boundaryBox;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_POLYGON:
                     {
-                        var newOffset = GetPolygon(array, 0, out Polygon polygon);
+                        Polygon polygon;
+                        var newOffset = GetPolygon(array, 0, out polygon);
                         Object = polygon;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_UBYTE:
                     {
-                        var newOffset = GetUByte(array, 0, out TraCIUByte UByte);
+                        TraCIUByte UByte;
+                        var newOffset = GetUByte(array, 0, out UByte);
                         Object = UByte.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_BYTE:
                     {
-                        var newOffset = GetByte(array, 0, out TraCIByte sByte);
+                        TraCIByte sByte;
+                        var newOffset = GetByte(array, 0, out sByte);
                         Object = sByte.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_INTEGER:
                     {
-                        var newOffset = GetInteger(array, 0, out TraCIInteger integer);
+                        TraCIInteger integer;
+                        var newOffset = GetInteger(array, 0, out integer);
                         Object = integer.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_FLOAT:
                     {
-                        var newOffset = GetFloat(array, 0, out TraCIFloat Float);
+                        TraCIFloat Float;
+                        var newOffset = GetFloat(array, 0, out Float);
                         Object = Float.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_DOUBLE:
                     {
-                        var newOffset = GetDouble(array, 0, out TraCIDouble Double);
+                        TraCIDouble Double;
+                        var newOffset = GetDouble(array, 0, out Double);
                         Object = Double.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_STRING:
                     {
-                        var newOffset = GetString(array, 0, out TraCIString String);
+                        TraCIString String;
+                        var newOffset = GetString(array, 0, out String);
                         Object = String.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_STRINGLIST:
                     {
-                        var newOffset = GetStringList(array, 0, out TraCIStringList StringList);
+                        TraCIStringList StringList;
+                        var newOffset = GetStringList(array, 0, out StringList);
                         Object = StringList.Value;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_COLOR:
                     {
-                        var newOffset = GetColor(array, 0, out Color color);
+                        Color color;
+                        var newOffset = GetColor(array, 0, out color);
                         Object = color;
                         return newOffset;
                     }
                 case TraCIConstants.TYPE_TLPHASELIST:
                     {
-                        var newOffset = GetTrafficLightPhaseList(array, 0, out TrafficLightPhaseList trafficLightPhaseList);
+                        TrafficLightPhaseList trafficLightPhaseList;
+                        var newOffset = GetTrafficLightPhaseList(array, 0, out trafficLightPhaseList);
                         Object = trafficLightPhaseList;
                         return newOffset;
                     }
@@ -717,103 +735,120 @@ namespace CodingConnected.TraCI.NET.Helpers
                                 {
                                     case TraCIConstants.POSITION_LON_LAT:
                                         {
-                                            offset = GetPositionLonLat(array, offset, out LonLatPosition lonLatPosition);
+                                            LonLatPosition lonLatPosition;
+                                            offset = GetPositionLonLat(array, offset, out lonLatPosition);
                                             ctlist.Add(lonLatPosition);
                                             break;
                                         }
                                     case TraCIConstants.POSITION_2D:
                                         {
-                                            offset = Get2DPosition(array, offset, out Position2D position2D);
+                                            Position2D position2D;
+                                            offset = Get2DPosition(array, offset, out position2D);
                                             ctlist.Add(position2D);
                                             break;
                                         }
                                     case TraCIConstants.POSITION_LON_LAT_ALT:
                                         {
-                                            offset = GetPositionLonLatAlt(array, offset, out LonLatAltPosition lonLatAltPosition);
+                                            LonLatAltPosition lonLatAltPosition;
+                                            offset = GetPositionLonLatAlt(array, offset, out lonLatAltPosition);
                                             ctlist.Add(lonLatAltPosition);
                                             break;
                                         }
                                     case TraCIConstants.POSITION_3D:
                                         {
-                                            offset = GetPostion3D(array, offset, out Position3D position3D);
+                                            Position3D position3D;
+                                            offset = GetPostion3D(array, offset, out position3D);
                                             ctlist.Add(position3D);
                                             break;
                                         }
                                     case TraCIConstants.POSITION_ROADMAP:
                                         {
-                                            offset = GetPositionRoadmap(array, offset, out RoadMapPosition roadMapPosition);
+                                            RoadMapPosition roadMapPosition;
+                                            offset = GetPositionRoadmap(array, offset, out roadMapPosition);
                                             ctlist.Add(roadMapPosition);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_BOUNDINGBOX:
                                         {
-                                            offset = GetBoundaryBox(array, offset, out BoundaryBox boundaryBox);
+                                            BoundaryBox boundaryBox;
+                                            offset = GetBoundaryBox(array, offset, out boundaryBox);
                                             ctlist.Add(boundaryBox);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_POLYGON:
                                         {
-                                            offset = GetPolygon(array, offset, out Polygon polygon);
+                                            Polygon polygon;
+                                            offset = GetPolygon(array, offset, out polygon);
                                             ctlist.Add(polygon);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_UBYTE:
                                         {
-                                            offset = GetUByte(array, offset, out TraCIUByte UByte);
+                                            TraCIUByte UByte;
+                                            offset = GetUByte(array, offset, out UByte);
                                             ctlist.Add(UByte);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_BYTE:
                                         {
-                                            offset = GetByte(array, offset, out TraCIByte Byte);
+                                            TraCIByte Byte;
+                                            offset = GetByte(array, offset, out Byte);
                                             ctlist.Add(Byte);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_INTEGER:
                                         {
-                                            offset = GetInteger(array, offset, out TraCIInteger integer);
+                                            TraCIInteger integer;
+                                            offset = GetInteger(array, offset, out integer);
                                             ctlist.Add(integer);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_FLOAT:
                                         {
-                                            offset = GetFloat(array, offset, out TraCIFloat Float);
+                                            TraCIFloat Float;
+                                            offset = GetFloat(array, offset, out Float);
                                             ctlist.Add(Float);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_DOUBLE:
                                         {
-                                            offset = GetDouble(array, offset, out TraCIDouble Double);
+                                            TraCIDouble Double;
+                                            offset = GetDouble(array, offset, out Double);
                                             ctlist.Add(Double);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_STRING:
                                         {
-                                            offset = GetString(array, offset, out TraCIString String);
+                                            TraCIString String;
+                                            offset = GetString(array, offset, out String);
                                             ctlist.Add(String);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_TLPHASELIST:
                                         {
-                                            var newOffset = GetTrafficLightPhaseList(array, offset, out TrafficLightPhaseList trafficLightPhaseList);
+                                            TrafficLightPhaseList trafficLightPhaseList;
+                                            var newOffset = GetTrafficLightPhaseList(array, offset, out trafficLightPhaseList);
                                             Object = trafficLightPhaseList;
                                             return newOffset;
                                         }
                                     case TraCIConstants.TYPE_COLOR:
                                         {
-                                            offset = GetColor(array, offset, out Color color);
+                                            Color color;
+                                            offset = GetColor(array, offset, out color);
                                             ctlist.Add(color);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_STRINGLIST:
                                         {
-                                            offset = GetStringList(array, offset, out TraCIStringList StringList);
+                                            TraCIStringList StringList;
+                                            offset = GetStringList(array, offset, out StringList);
                                             ctlist.Add(StringList);
                                             break;
                                         }
                                     case TraCIConstants.TYPE_COMPOUND:
                                         {
-                                            offset += GetValueFromTypeAndArray(TraCIConstants.TYPE_COMPOUND, array.Skip(offset).ToArray(), out object InnerObject);
+                                            object InnerObject;
+                                            offset += GetValueFromTypeAndArray(TraCIConstants.TYPE_COMPOUND, array.Skip(offset).ToArray(), out InnerObject);
                                             var tmp = InnerObject as CompoundObject;
                                             ctlist.Add(tmp);
                                             i += 1 + tmp.Value.Count; //nested compounds are not nice! 
@@ -832,19 +867,23 @@ namespace CodingConnected.TraCI.NET.Helpers
                         throw new ArgumentOutOfRangeException();
                     }
             }
+        
         }
 
         private static int GetTrafficLightPhaseList(IEnumerable<byte> array, int offset, out TrafficLightPhaseList trafficLightPhaseList)
         {
             trafficLightPhaseList = new TrafficLightPhaseList();
-
-            offset = GetByte(array, offset, out TraCIByte count);
+            TraCIByte count;
+            offset = GetByte(array, offset, out count);
 
             for (int i = 0; i < count.Value; i++)
             {
-                offset = GetString(array, offset, out TraCIString precRoad);
-                offset = GetString(array, offset, out TraCIString succRoad);
-                offset = GetByte(array, offset, out TraCIByte phase);
+                TraCIString precRoad;
+                TraCIString succRoad;
+                TraCIByte phase;
+                offset = GetString(array, offset, out precRoad);
+                offset = GetString(array, offset, out succRoad);
+                offset = GetByte(array, offset, out phase);
 
                 trafficLightPhaseList.Phases.Add(new TrafficLightPhase()
                 {

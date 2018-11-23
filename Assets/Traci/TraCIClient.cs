@@ -46,12 +46,12 @@ namespace CodingConnected.TraCI.NET
         #endregion
 
         #region Fields
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
         private TcpClient _client;
         private NetworkStream _stream;
 #endif
 
-#if !UNITY_EDITOR
+#if UNITY_WSA
         private Windows.Networking.Sockets.StreamSocket socket;
         private Task exchangeTask;
         private Stream streamOut;
@@ -124,7 +124,7 @@ namespace CodingConnected.TraCI.NET
         /// <param name="port">Port at which SUMO exposes the API</param>
         public async Task ConnectAsync(string hostname, int port)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
             _client = new TcpClient
             {
                 ReceiveBufferSize = 32768,
@@ -134,7 +134,7 @@ namespace CodingConnected.TraCI.NET
             _stream = _client.GetStream();
 #endif
 
-#if !UNITY_EDITOR
+#if UNITY_WSA
             socket = new Windows.Networking.Sockets.StreamSocket();
             Windows.Networking.HostName serverHost = new Windows.Networking.HostName(hostname);
             await socket.ConnectAsync(serverHost, port.ToString());
@@ -146,15 +146,15 @@ namespace CodingConnected.TraCI.NET
 #endif
         }
 
-#endregion // Public Methods
+        #endregion // Public Methods
 
 
-#region Public Methods
+        #region Public Methods
 
-	    internal TraCIResult[] SendMessage(TraCICommand command)
+        internal TraCIResult[] SendMessage(TraCICommand command)
 	    {
             var msg = TraCIDataConverter.GetMessageBytes(command);
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID || UNITY_STANDALONE
             if (!_client.Connected)
 		    {
 			    return null;
@@ -163,7 +163,7 @@ namespace CodingConnected.TraCI.NET
 		    _client.Client.Send(msg);
 			var bytesRead = _stream.Read(_receiveBuffer, 0, 32768);
 #endif
-#if !UNITY_EDITOR
+#if UNITY_WSA
             streamOut.Write(msg,0,msg.Length);
             streamOut.Flush();
             var bytesRead = streamIn.Read(_receiveBuffer, 0, 32768);
@@ -183,10 +183,10 @@ namespace CodingConnected.TraCI.NET
             {
                 while (bytesRead < totlength)
                 {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_ANDROID|| UNITY_STANDALONE
                     var innerBytesRead = _stream.Read(_receiveBuffer, 0, 32768);
 #endif
-#if !UNITY_EDITOR
+#if UNITY_WSA
                     var innerBytesRead = streamIn.Read(_receiveBuffer, 0, 32768);
 #endif
                     response.AddRange(_receiveBuffer.Take(innerBytesRead).ToArray());
